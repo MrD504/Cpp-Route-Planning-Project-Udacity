@@ -56,9 +56,13 @@ int main(int argc, const char **argv)
 
     // Build Model.
     RouteModel model{osm_data};
+    // Todo: add validation to user input
+    int start_x = -1,
+        start_y = -1,
+        end_x = -1,
+        end_y = -1;
 
-    int start_x, start_y, end_x, end_y;
-    
+
     std::cout << "Please enter your starting x point" << std::endl;
     std::cin >> start_x;
    
