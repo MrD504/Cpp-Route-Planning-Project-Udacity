@@ -3,10 +3,12 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <array>
 #include <io2d.h>
 #include "route_model.h"
 #include "render.h"
 #include "route_planner.h"
+#include "user_interaction.h"
 
 using namespace std::experimental;
 
@@ -57,25 +59,15 @@ int main(int argc, const char **argv)
     // Build Model.
     RouteModel model{osm_data};
     // Todo: add validation to user input
-    int start_x = -1,
-        start_y = -1,
-        end_x = -1,
-        end_y = -1;
+    UserInteraction UI;
 
+    float sX = UI.promptUserForValidInput("start X");
+    float sY = UI.promptUserForValidInput("end X");
+    float eX = UI.promptUserForValidInput("end X");
+    float eY = UI.promptUserForValidInput("end Y");
 
-    std::cout << "Please enter your starting x point" << std::endl;
-    std::cin >> start_x;
-   
-    std::cout << "Please enter your starting y point" << std::endl;
-    std::cin >> start_y;
-
-    std::cout << "Please enter your ending x point of your destination" << std::endl;
-    std::cin >> end_x;
-
-    std::cout << "Please enter your ending y point of your destination" << std::endl;
-    std::cin >> end_y;
     // Perform search and render results.
-    RoutePlanner route_planner{model, start_x, start_y, end_x, end_y};
+    RoutePlanner route_planner{model, sX, sY, eX, eY};
     route_planner.AStarSearch();
     std::cout << route_planner.GetDistance();
     Render render{model};
